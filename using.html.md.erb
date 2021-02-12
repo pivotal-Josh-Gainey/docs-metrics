@@ -342,3 +342,23 @@ curl --get -H "Authorization: $(cf oauth-token)" \
   ]
 }
 ```
+
+**GET** `/v1/sources/{sourceID}/download`
+   
+Issues a query against Log Store data. 
+   
+Note that the downloads endpoint may also take query parameters including start and end times (See above for an example). 
+   
+An output (-o) must be specified in the curl.
+   
+```shell
+export SYSTEM_DOMAIN="<YOUR_SYSTEM_DOMAIN>"
+export SOURCE_ID="$(cf app <YOUR_APP> --guid)"
+curl --get -H "Authorization: $(cf oauth-token)" \
+     "https://log-store.$YOUR_SYSTEM_DOMAIN/v1/sources/$SOURCE_ID/download" \
+     --data-urlencode 'startTime=2020-03-24T06:55:00Z' \
+     --data-urlencode 'endTime=2020-03-24T06:59:00Z' \
+     -o logs.gz
+```
+ 
+   
